@@ -11,10 +11,14 @@ import os
 JOKE = "My cat pushed my glass off the table, watched it shatter, then looked at me like I did it."
 
 
+def validate_line(line: str) -> None:
+    assert 1 <= len(line) <= 200, "line must be 1-200 characters"
+    assert "\n" not in line and "\r" not in line, "line must be a single line"
+    assert line.strip(), "line must not be only whitespace"
+
+
 def main() -> None:
-    assert 1 <= len(JOKE) <= 200, "joke must be 1-200 characters"
-    assert "\n" not in JOKE and "\r" not in JOKE, "joke must be a single line"
-    assert JOKE.strip(), "joke must not be only whitespace"
+    validate_line(JOKE)
     os.makedirs("/output", exist_ok=True)
     with open("/output/entry.txt", "w", encoding="utf-8") as f:
         f.write(JOKE + "\n")
